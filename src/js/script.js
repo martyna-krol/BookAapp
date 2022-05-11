@@ -8,8 +8,7 @@
       books: '.books-list',
     },
     all: {
-      menuBooks: '.books-list > .book',
-      bookImages: '.books-list > .book__image'
+      bookImages: '.books-list .book__image',
     },
   };
 
@@ -29,6 +28,8 @@
   }
 
   let favoriteBooks = [];
+  
+  
 
   function initActions(){ // nie działa
     const bookImages = document.querySelectorAll(select.all.bookImages);
@@ -36,10 +37,11 @@
       book.addEventListener('dblclick' , function (event){
         event.preventDefault();
         book.classList.add('favorite');
-        const id = book.data.id;
+        const id = book.getAttribute('data-id');
         favoriteBooks.push(id);
+        
       });
-    }
+    }    
   }
 
   render();
