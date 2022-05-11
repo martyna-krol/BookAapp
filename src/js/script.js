@@ -29,18 +29,23 @@
 
   let favoriteBooks = [];
   
-  
-
-  function initActions(){ // nie działa
+  function initActions(){
     const bookImages = document.querySelectorAll(select.all.bookImages);
     for (const book of bookImages){
+      const id = book.getAttribute('data-id');
       book.addEventListener('dblclick' , function (event){
-        event.preventDefault();
-        book.classList.add('favorite');
-        const id = book.getAttribute('data-id');
-        favoriteBooks.push(id);
-        
+        if (favoriteBooks.includes(id) === false) {
+          event.preventDefault();
+          book.classList.add('favorite');
+          favoriteBooks.push(id);
+        } else {
+          book.classList.remove('favorite');
+          const indexOfId = favoriteBooks.indexOf(id);
+          console.log(indexOfId);
+          favoriteBooks.splice(indexOfId, 1);
+        }
       });
+      
     }    
   }
 
