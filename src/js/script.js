@@ -17,7 +17,8 @@
     menuBooks: Handlebars.compile(document.querySelector('#template-book').innerHTML),
   };
 
-
+  let favoriteBooks = [];
+  let filters = [];
 
   function render(){
     for (const book in dataSource.books){
@@ -28,8 +29,26 @@
     }
   }
 
-  let favoriteBooks = [];
-  let filters = [];
+  function filterBooks(){
+    const bookLink = document.querySelector(select.all.bookImages);
+    const id = bookLink.getAttribute('data-id');
+    console.log(id);
+    for (const bookId in dataSource.books){
+      let shouldBeHidden = false;
+      const book = dataSource.books[bookId];
+      for (const filter of filters){
+        if(!book.details[filter]){
+          shouldBeHidden = true;
+          break;
+        }
+      }
+      if (shouldBeHidden === true && id == book.id){
+        bookLink.classList.add('hidden');
+      } else {
+        bookLink.classList.remove('hidden');
+      }
+    } 
+  }
   
   function initActions(){
     const bookList = document.querySelector(select.containerOf.books);
@@ -57,16 +76,13 @@
         event.target.type == 'checkbox' &&
         event.target.name == 'filter'){
         if (event.target.checked == true){
-          console.log(event.target.value);
           filters.push(event.target.value);
-          console.log(filters);
         } else {
-          console.log(event.target.value + ' odkliknięte!');
           const indexOfId = filters.indexOf(event.target.value);
           filters.splice(indexOfId, 1);
-          console.log(filters);
         }
       }
+      filterBooks();
     });
   }
 
