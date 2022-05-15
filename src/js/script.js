@@ -30,9 +30,7 @@
   }
 
   function filterBooks(){
-    const bookLink = document.querySelector(select.all.bookImages);
-    const id = bookLink.getAttribute('data-id');
-    console.log(id);
+    const bookLinks = document.querySelectorAll(select.all.bookImages);
     for (const bookId in dataSource.books){
       let shouldBeHidden = false;
       const book = dataSource.books[bookId];
@@ -41,13 +39,17 @@
           shouldBeHidden = true;
           break;
         }
-      }
-      if (shouldBeHidden === true && id == book.id){
-        bookLink.classList.add('hidden');
-      } else {
-        bookLink.classList.remove('hidden');
-      }
-    } 
+      }    
+      for (const bookLink of bookLinks){
+        const id = bookLink.getAttribute('data-id');
+        console.log('bookLink id: ' , id , 'book dataSource id:' , book.id , 'shouldBeHidden: ' , shouldBeHidden);
+        if (shouldBeHidden === true && id == book.id){
+          bookLink.classList.add('hidden');
+        } else if (shouldBeHidden === false && id == book.id){
+          bookLink.classList.remove('hidden');
+        }
+      }  
+    }
   }
   
   function initActions(){
