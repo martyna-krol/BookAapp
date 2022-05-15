@@ -26,7 +26,7 @@
       const bookRating = bookElem.rating;
       const ratingBgc = determineRatingBgc(bookRating);
       const ratingWidth = 10 * bookRating;
-      console.log(ratingBgc , ratingWidth);
+      console.log(ratingBgc , ratingWidth); // nie wiem jak
       // const linkHTMLData = {raitingWidth: ratingWidth, ratingBgc: ratingBgc};
 
       const generatedHTML = templates.menuBooks(dataSource.books[book]);
